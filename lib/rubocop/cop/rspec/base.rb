@@ -17,7 +17,7 @@ module RuboCop
       #   #     Patterns:
       #   #     - '_test.rb$'
       #   #     - '(?:^|/)test/'
-      class Cop < ::RuboCop::Cop::Base
+      class Base < ::RuboCop::Cop::Base
         include RuboCop::RSpec::Language
         include RuboCop::RSpec::Language::NodePattern
 
@@ -31,7 +31,7 @@ module RuboCop
 
         # Invoke the original inherited hook so our cops are recognized
         def self.inherited(subclass)
-          RuboCop::Cop::Cop.inherited(subclass)
+          RuboCop::Cop::Base.inherited(subclass)
         end
 
         def relevant_file?(file)
