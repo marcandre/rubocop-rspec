@@ -31,14 +31,9 @@ module RuboCop
 
         def on_block(node)
           return unless example_group?(node)
-          return if last_child?(node)
 
-          missing_separating_line(node) do |location|
-            msg = format(MSG, example_group: node.method_name)
-            add_offense(location, message: msg) do |corrector|
-              corrector.insert_after(location.end, "\n")
-            end
-          end
+          msg = format(MSG, example_group: node.method_name)
+          check_missing_separating_lines(node, message: msg)
         end
       end
     end

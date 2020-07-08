@@ -22,13 +22,8 @@ module RuboCop
 
         def on_block(node)
           return unless subject?(node) && !in_spec_block?(node)
-          return if last_child?(node)
 
-          missing_separating_line(node) do |location|
-            add_offense(location) do |corrector|
-              corrector.insert_after(location.end, "\n")
-            end
-          end
+          check_missing_separating_lines(node, message: MSG)
         end
 
         private

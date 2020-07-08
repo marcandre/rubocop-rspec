@@ -8,6 +8,16 @@ module RuboCop
       include FinalEndLocation
       include RuboCop::Cop::RangeHelp
 
+      def check_missing_separating_lines(node, message:)
+        return if last_child?(node)
+
+        missing_separating_line(node) do |location|
+          add_offense(location, message: message) do |corrector|
+            corrector.insert_after(location.end, "\n")
+          end
+        end
+      end
+
       def missing_separating_line(node)
         line = final_end_location(node).line
 
